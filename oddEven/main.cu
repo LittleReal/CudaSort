@@ -6,7 +6,7 @@ using namespace std;
 __global__ void exchangeMin(int* arr, int start){
     int tID = blockDim.x*blockIdx.x + threadIdx.x;
     if (arr[start + tID*2] <= arr[start + tID*2 + 1]){
-        return
+        return;
     }
 
     int temp = arr[start + tID*2];
@@ -15,7 +15,7 @@ __global__ void exchangeMin(int* arr, int start){
 }
 
 void cudaOddEvenSort(int* arr, int length){
-    for (int i = 0; i<length,; i++){
+    for (int i = 0; i<length; i++){
         if (0 == i%2){
             exchangeMin<<<1, length/2, 0, 0>>>(arr, 0);
         }
@@ -54,6 +54,7 @@ int main(){
         cout<<arr[i]<<endl;
     }
 
+    cudaFree(cudaArr);
 
     return 0;
 }
